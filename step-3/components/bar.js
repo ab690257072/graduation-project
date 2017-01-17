@@ -1,3 +1,3 @@
 export default function bar() {
-  console.log('hello bar!');
+  console.log('This is a bar!');
 }

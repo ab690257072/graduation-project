@@ -7,9 +7,8 @@ This is my graduation-project in jirengu.
 npm install
 ```
 ```
-cd graduation-project
+cd step-2
 ```
-* 如果您的命令环境中有webpack-dev-server，可以用如下命令快速运行项目：
 ```
-npm run dev
+webpack
 ```

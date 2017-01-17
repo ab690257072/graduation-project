@@ -1,17 +1,20 @@
 module.exports = {
-	entry: './app.js',
-	output: {
-		path: __dirname,
-		filename: 'bundle.js'
-	},
-	module: {
-		loaders: [
-			{test: /\.vue$/, loader: 'vue'},
-			{test: /\.js$/, loader: 'babel', exclude: /node_modules/}
-		]
-	},
-	babel: {
-		presets: ['es2015'],
-		plugins: ['transform-runtime']
-	}
-};
+  entry: './app.js',
+  output: {
+    filename: 'bundle.js'
+  },
+  module: {
+    loaders:[
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader?presets[]=es2015'
+      },
+    ]
+  },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.common.js'
+    }
+  }
+}
