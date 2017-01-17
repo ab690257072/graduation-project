@@ -56,7 +56,8 @@
 	  el: '#app',
 	  data: {
 	    newTodo: '',
-	    todoList: []
+	    todoList: [],
+	    checked: false
 	  },
 	  methods: {
 	    addTodo: function addTodo() {

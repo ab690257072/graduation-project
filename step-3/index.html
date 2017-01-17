@@ -8,13 +8,13 @@
 
 <body>
 	<div id="app">
-      <div class="newTask">
-        <input type="text" v-model="newTodo" @keypress.enter="addTodo">
-      </div>
+		<div class="newTask">
+				<input type="text" placeholder="输入待办事项" v-model="newTodo" @keypress.enter="addTodo">
+		</div>
 		<ol class="todos">
 			<li v-for="(todo, index) in todoList">
 				<input type="checkbox" id="checkbox" v-model="todo.done">
-				{{todo.title}}
+				<label for="checkbox">{{todo.title}}</label>
 				<span v-if="todo.done">已完成</span>
 				<span v-else>未完成</span>
 				<button @click="removeTodo(index)">&times;</button>

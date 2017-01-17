@@ -4,7 +4,8 @@ var app = new Vue({
   el: '#app',
   data: {
     newTodo: '',
-    todoList: []
+    todoList: [],
+    checked: false
   },
   methods: {
     addTodo() {
