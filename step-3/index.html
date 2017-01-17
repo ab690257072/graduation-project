@@ -3,12 +3,23 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>vue-demo</title>
+	<title>todoList-demo</title>
 </head>
 
 <body>
 	<div id="app">
-		{{ message }}
+      <div class="newTask">
+        <input type="text" v-model="newTodo" @keypress.enter="addTodo">
+      </div>
+		<ol class="todos">
+			<li v-for="(todo, index) in todoList">
+				<input type="checkbox" id="checkbox" v-model="todo.done">
+				{{todo.title}}
+				<span v-if="todo.done">已完成</span>
+				<span v-else>未完成</span>
+				<button @click="removeTodo(index)">&times;</button>
+			</li>
+		</ol>
 	</div>
 	<script src="bundle.js"></script>
 </body>

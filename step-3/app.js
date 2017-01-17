@@ -1,11 +1,31 @@
 import Vue from 'vue';
-import bar from './components/bar'
-
-bar();
 
 var app = new Vue({
   el: '#app',
   data: {
-    message: 'zhao!'
+    newTodo: '',
+    todoList: []
+  },
+  methods: {
+    addTodo() {
+      this.todoList.push({
+        title: this.newTodo,
+        createdAt: new Date(),
+        done: false
+      });
+      this.newTodo = '';
+    },
+    removeTodo(index) {
+      this.todoList.splice(index,1);
+    }
+  },
+  created() {
+  window.onbeforeunload = ()=>{
+    let dataString = JSON.stringify(this.todoList);
+    window.localStorage.setItem('myTodos', dataString);
+  }
+  let oldDataString = window.localStorage.getItem('myTodos');
+  let oldData = JSON.parse(oldDataString);
+  this.todoList = oldData || [];
   }
 });

@@ -1,7 +1,7 @@
 {
   "name": "graduation-project",
   "version": "1.0.0",
-  "description": "A vue-demo",
+  "description": "A todo-demo",
   "main": "app.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot --port 8082"

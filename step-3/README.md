@@ -7,7 +7,7 @@ This is my graduation-project in jirengu.
 npm install
 ```
 ```
-cd step-2
+cd step-3
 ```
 ```
 webpack
