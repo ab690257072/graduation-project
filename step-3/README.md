@@ -12,3 +12,10 @@ cd step-3
 ```
 webpack
 ```
+* 也可以使用webpack-dev-server
+```
+npm run dev
+```
+```
+npm run build
+```
