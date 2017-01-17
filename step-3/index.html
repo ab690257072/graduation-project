@@ -8,7 +8,7 @@
 
 <body>
 	<div id="app">
-		<div class="newTask">
+		<div class="newTask" v-cloak>
 				<input type="text" placeholder="输入待办事项" v-model="newTodo" @keypress.enter="addTodo">
 		</div>
 		<ol class="todos">
