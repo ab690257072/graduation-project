@@ -5,7 +5,7 @@
     </div>
     <ol class="todos">
       <li v-for="(todo, index) in todoList">
-        <el-checkbox v-model="todo.done" checked></el-checkbox>
+        <el-checkbox v-model="todo.done"></el-checkbox>
         <span>{{todo.title}}</span>
         <el-button type="danger" @click="removeTodo(index)" size="mini">&times;</el-button>
         <el-tag type="success" v-if="todo.done">已完成</el-tag>
@@ -48,9 +48,18 @@
 </script>
 <style scoped>
   li {
-    width: 200px;
+    width: 572px;
   }
   
+  input[type="text"] {
+    height: 1.5em;
+    width: 30em;
+    padding-left: .5em;
+    border: 1px solid burlywood;
+    border-radius: .15em;
+    font-size: 125%;
+
+  }
   li:after {
     content: '';
     display: block;
