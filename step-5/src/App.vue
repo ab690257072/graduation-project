@@ -89,6 +89,14 @@
       }
     },
     methods: {
+      updateTodos() {
+        let dataString = JSON.stringify(this.todoList);
+        let avTodos = AV.Object.createWithoutData('AllTodos', this.todoList.id);
+        avTodos.set('content', dataString);
+        avTodos.save().then(() => {
+          console.log('更新成功');
+        });
+      },
       addTodo() {
         this.todoList.push({
           title: this.newTodo,
@@ -96,10 +104,49 @@
           done: false
         });
         this.newTodo = '';
+        this.saveOrUpdateTodos();
       },
       removeTodo(todo) {
         let index = this.todoList.indexOf(todo);
         this.todoList.splice(index, 1);
+        this.saveOrUpdateTodos();
+      },
+      saveTodos() {
+        let dataString = JSON.stringify(this.todoList);
+        var AVTodos = AV.Object.extend('AllTodos');
+        var avTodos = new AVTodos();
+        var acl = new AV.ACL();
+        acl.setReadAccess(AV.User.current(), true);
+        acl.setWriteAccess(AV.User.current(), true);
+        avTodos.set('content', dataString);
+        avTodos.setACL(acl);
+        avTodos.save().then((todo) => {
+          this.todoList.id = todo.id;
+          console.log('保存成功');
+        }, function (error) {
+          console.log('保存失败');
+        });
+      },
+      saveOrUpdateTodos() {
+        if (this.todoList.id) {
+          this.updateTodos();
+        } else {
+          this.saveTodos();
+        }
+      },
+      fetchTodos() {
+        if (this.currentUser) {
+          var query = new AV.Query('AllTodos');
+          query.find()
+            .then((todos) => {
+              let avAllTodos = todos[0];
+              let id = avAllTodos.id;
+              this.todoList = JSON.parse(avAllTodos.attributes.content);
+              this.todoList.id = id;
+            }, function (error) {
+              console.log(error);
+            });
+        }
       },
       signUp() {
         let user = new AV.User();
@@ -114,8 +161,9 @@
       login() {
         AV.User.logIn(this.formData.username, this.formData.password).then((loginedUser) => {
           this.currentUser = this.getCurrentUser();
+          this.fetchTodos();
         }, (error) => {
-          alert('登录失败');
+          console.log('登录失败');
         });
       },
       logout() {
@@ -144,15 +192,10 @@
       }
     },
     created() {
-      window.onbeforeunload = () => {
-        let dataString = JSON.stringify(this.todoList);
-        window.localStorage.setItem('myTodos', dataString);
-      }
-      let oldDataString = window.localStorage.getItem('myTodos');
-      let oldData = JSON.parse(oldDataString);
-      this.todoList = oldData || [];
+      // beforeunload 事件里面的所有请求都发不出去，会被取消
 
       this.currentUser = this.getCurrentUser();
+      this.fetchTodos();
     }
   }
 </script>
@@ -215,7 +258,7 @@
     right: 95px;
     color: rgba(0, 0, 0, 0.5);
   }
-
+  
   .close {
     padding: 4px 15px;
     position: absolute;
