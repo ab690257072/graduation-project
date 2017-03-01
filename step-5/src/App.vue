@@ -40,7 +40,7 @@
         <ol class="todos" v-if="todoList.length">
           <li v-for="(todo, i) in todoList">
             <button class="close" @click="removeTodo(todo)">X</button>
-            <input type="checkbox" v-model="todo.done" :id="'check-'+i">
+            <input type="checkbox" v-model="todo.done" :id="'check-'+i" @change="saveOrUpdateTodos()">
             <label :for="'check-'+i"><span>{{ todo.title }}</span></label>
             <span class="createTime">{{todo.createdAt | normalTime}}</span>
             <span v-if="todo.done" class="tag success">已完成</span>
@@ -145,7 +145,6 @@
         });
       },
       logout() {
-        this.saveOrUpdateTodos();
         AV.User.logOut();
         this.currentUser = null;
         window.location.reload();
