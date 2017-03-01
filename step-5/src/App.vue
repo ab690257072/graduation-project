@@ -145,6 +145,7 @@
         });
       },
       logout() {
+        this.saveOrUpdateTodos();
         AV.User.logOut();
         this.currentUser = null;
         window.location.reload();
